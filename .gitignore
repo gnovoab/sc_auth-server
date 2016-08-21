@@ -1,0 +1,32 @@
+# Created by .gitignore support plugin (hsz.mobi)
+
+# Log directories
+catalina.base_IS_UNDEFINED
+
+# IDE working files
+*.iws
+*.ipr
+*.iml
+.idea/
+.settings/
+.project
+.classpath
+
+# Build directories
+target/
+logs/
+
+# Build and test files
+*.log*
+*.lck
+
+# OS generated files
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+/bin
+
+
+src/main/webapp/assets/libs
+/logs/
