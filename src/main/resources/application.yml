@@ -20,16 +20,17 @@ security:
 # and token store
 spring:
   datasource:
-    url: jdbc:mysql://myDb.eu-west-1.rds.amazonaws.com:3306/conversationDB
+    url: jdbc:mysql://myDBAddres:3306/OauthDB
     username: admin
-    password: gabriel.novoa
+    password: admin
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: false
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: validate
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
 ---
 
 spring:

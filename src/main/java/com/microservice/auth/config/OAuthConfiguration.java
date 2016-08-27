@@ -39,7 +39,6 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 	@Resource
 	private DataSource dataSource;
 
-	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	/**
 	 * The OAuth2 tokens are defined in the datasource defined in the
@@ -58,9 +57,17 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 		return new JdbcAuthorizationCodeServices(dataSource);
 	}
 
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder;
+    }
+
+
+
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		security.passwordEncoder(passwordEncoder);
+		security.passwordEncoder(passwordEncoder());
 	}
 
 
@@ -91,7 +98,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 	
 		clients.jdbc(dataSource)
-				.passwordEncoder(passwordEncoder)
+				.passwordEncoder(passwordEncoder())
 				.withClient("client")
 				.authorizedGrantTypes("authorization_code", "client_credentials", "refresh_token","password", "implicit")
 				.authorities("ROLE_CLIENT")
@@ -100,34 +107,5 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 				.secret("secret")
 				.accessTokenValiditySeconds(300);
 	}
-	
-	/**
-	 * Configure the {@link AuthenticationManagerBuilder} with initial
-	 * configuration to setup users.
-	 * 
-	 * @author anilallewar
-	 *
-	 */
-	@Configuration
-	@Order(Ordered.LOWEST_PRECEDENCE - 20)
-	protected static class AuthenticationManagerConfiguration extends
-            GlobalAuthenticationConfigurerAdapter {
 
-		@Autowired
-		private DataSource dataSource;
-
-		/**
-		 * Setup 2 users with different roles
-		 */
-		@Override
-		public void init(AuthenticationManagerBuilder auth) throws Exception {
-			// @formatter:off
-			auth.jdbcAuthentication().dataSource(dataSource).withUser("dave")
-					.password("secret").roles("USER");
-			auth.jdbcAuthentication().dataSource(dataSource).withUser("anil")
-					.password("password").roles("ADMIN");
-			// @formatter:on
-		}
-	}
-	
 }

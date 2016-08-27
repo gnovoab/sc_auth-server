@@ -61,6 +61,12 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
             return new UserRepositoryUserDetails(user);
         }
+        catch (ResourceNotFoundException e) {
+            throw e;
+        }
+        catch (UserNotActiveException e) {
+            throw e;
+        }
         catch (Exception e) {
             LOGGER.error("Unknown exception while searching for user: [{}]", username, e);
             throw new DatabaseException("Unknown exception while searching user by username", e);
