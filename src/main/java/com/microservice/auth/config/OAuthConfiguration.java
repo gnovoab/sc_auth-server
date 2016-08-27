@@ -1,5 +1,8 @@
+
+//Namespace
 package com.microservice.auth.config;
 
+//Imports
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,10 +59,11 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security)
-			throws Exception {
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.passwordEncoder(passwordEncoder);
 	}
+
+
 
 	/**
 	 * We set our authorization storage feature specifying that we would use the
@@ -77,25 +81,24 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 				.approvalStoreDisabled();
 	}
 
+
+
 	/**
 	 * Setup the client application which attempts to get access to user's
 	 * account after user permission.
 	 */
 	@Override
-	public void configure(ClientDetailsServiceConfigurer clients)
-			throws Exception {
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 	
 		clients.jdbc(dataSource)
 				.passwordEncoder(passwordEncoder)
 				.withClient("client")
-				.authorizedGrantTypes("authorization_code", "client_credentials", 
-						"refresh_token","password", "implicit")
+				.authorizedGrantTypes("authorization_code", "client_credentials", "refresh_token","password", "implicit")
 				.authorities("ROLE_CLIENT")
 				.resourceIds("apis")
 				.scopes("read")
 				.secret("secret")
 				.accessTokenValiditySeconds(300);
-	
 	}
 	
 	/**

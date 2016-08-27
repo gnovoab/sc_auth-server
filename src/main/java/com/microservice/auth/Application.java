@@ -14,8 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * The Main Spring Boot Application class
  */
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 @EnableEurekaClient
 public class Application {
 

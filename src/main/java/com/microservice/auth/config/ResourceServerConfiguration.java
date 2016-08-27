@@ -1,8 +1,8 @@
-/**
- * 
- */
+
+//Namespace
 package com.microservice.auth.config;
 
+//Imports
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -13,9 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
  * Since the "me" endpoint needs to be protected to be accessed only after the
  * OAuth2 authentication is successful; the server also becomes a resource
  * server.
- * 
- * @author anilallewar
- *
  */
 @Configuration
 @EnableResourceServer
