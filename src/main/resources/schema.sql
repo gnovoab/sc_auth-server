@@ -77,7 +77,7 @@ CREATE TABLE `gnb_user` (
   `username` varchar(255) NOT NULL UNIQUE ,
   `email` varchar(255) NOT NULL UNIQUE ,
   `password` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL DEFAULT 'USER_ROLE',
+  `role` varchar(255) NOT NULL DEFAULT 'ROLE_USER',
   `active` bit(1) NOT NULL DEFAULT b'1',
   `password_reset` bit(1) NOT NULL DEFAULT  b'0',
   PRIMARY KEY (`id`)
